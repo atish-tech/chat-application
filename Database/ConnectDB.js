@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
 
+const host = "mongodb://127.0.0.1/chat-application";
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://127.0.0.1/chat-application" || process.env.MONGO_URI)
+        await mongoose.connect(process.env.MONGO_URI)
         console.log("Database is connected");
     }
     catch (error) {

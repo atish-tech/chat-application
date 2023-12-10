@@ -13,7 +13,8 @@ const protect = async (request , responnse , next) => {
             const decod = jsonwebtoken.verify(token , process.env.JWT_SECRET);
             request.user = await usermodel.findById(decod.id).select("-password");
             next();
-        } catch (error) {
+        } 
+        catch (error) {
             responnse.status(401);
             throw new Error("user not authorized");
         }

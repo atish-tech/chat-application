@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express()
-const Router = require("./Route/login")
+const Router = require("./Route/auth")
 const messageRoute = require("./Route/messageRoute")
 const cors = require('cors');
 require('dotenv').config();  // load envirnment variable

@@ -9,9 +9,6 @@ const addUserToMyContact = require("../Conroller/addUserToMyContact");
 Router.get('/' , (request , response) => {
     response.send("API is running");
 });
-Router.get('/test' , (request , response) => {
-    response.send("test is running");
-});
 Router.post('/register' , registerController);
 Router.post('/login' , loginController);
 Router.get('/users' , protect , getUserController);

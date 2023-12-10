@@ -32,14 +32,14 @@ const getMessage = async (request , response , next) => {
             }
         }).sort({updatedAt : 1});
 
-        const projectedMessage = message.map((m) => {
+        const userMessage = message.map((m) => {
             return {
                 fromSelf : m.sender.toString() === from,
                 message : m.message.text,
             };
         });
 
-        response.json(projectedMessage);
+        response.json(userMessage);
     }
     catch (error) {
         next(error)

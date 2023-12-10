@@ -7,22 +7,17 @@ const registerController = async (request , response) => {
     const {name , email , password} = request.body;
 
     // empty fields 
-    if(!name || !email || !password){
-        response.status(400);
-        throw new Error("All fields are complsary");
-        return;
+    if(!name || !email || !password){        
+        return response.status(400).json({message : "All fields are complassery"});
     }
 
     // email exist
-    // const userEmailExist = await userModel.findOne({email});
-    // if(userEmailExist) {
-    //     response.status(400);
-    //     throw new Error("Email already exist");
-    // }
+    if(await userModel.findOne({email})) {
+        return response.status(400).json({message : "Email already exist"});
+    }
 
     // Create new entry
     const newUser = await userModel.create({name , email , password});
-
     if(newUser) {
         response.status(201).json({
             _id: newUser._id,
@@ -31,18 +26,20 @@ const registerController = async (request , response) => {
             token: generateToken(newUser._id)
         })
     }
-    else {
-        response.status(400);
-        throw new Error("Registration Error");
-    }
 }
+
 
 // Login
 const loginController = async (request, response) => {
     const { email, password } = request.body;
     const user = await userModel.findOne({ email });  // find email in data base
 
+    // check email
+    if(!user) {
+        return response.status(400).json({message : "Email not exist"});
+    }
 
+    // check password & create new token
     if (user && (await user.matchPassword(password))) {  
         response.json({
             _id: user._id,
@@ -51,10 +48,10 @@ const loginController = async (request, response) => {
             token: generateToken(user._id),
         })
     }
+
+    // if password is not correct
     else {
-        // response.status(401);
-        // throw new Error("Envalid username password");
-        return response.status(400).json({message : "Incorrect user name"});
+        return response.status(400).json({message : "Incorrect Password"});
     }
 }
 
