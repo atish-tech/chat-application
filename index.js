@@ -1,11 +1,14 @@
 const express = require("express");
 const app = express()
-const Router = require("./Route/auth")
-const messageRoute = require("./Route/messageRoute")
+
 const cors = require('cors');
 require('dotenv').config();  // load envirnment variable
-const connectDb = require("./Database/ConnectDB");
+
 const socket = require('socket.io');
+
+const connectDb = require("./Database/ConnectDB");
+const Router = require("./Route/auth")
+const messageRoute = require("./Route/messageRoute")
 
 // Parse incomeing request 
 app.use(express.json())
@@ -25,8 +28,8 @@ const server = app.listen(8080);
 // Socket io connection
 const io = socket(server , {
     cors: {
-        // origin : "http://localhost:3000", 
-        // credentials : true,
+        origin : "https://atishthakur.me", 
+        credentials : true,
     },
 });
 
