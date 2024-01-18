@@ -4,7 +4,7 @@ const app = express()
 const cors = require('cors');
 require('dotenv').config();  // load envirnment variable
 
-const socket = require('socket.io');
+const socket = require('socket.io'); 
 
 const connectDb = require("./Database/ConnectDB");
 const Router = require("./Route/auth")
@@ -18,7 +18,7 @@ app.use(cors());
 // connect Database
 connectDb();
 
-// Routes
+// Routes 
 app.use(Router);
 app.use(messageRoute);
 
@@ -28,10 +28,11 @@ const server = app.listen(8080);
 // Socket io connection
 const io = socket(server , {
     cors: {
-        origin : "https://atishthakur.me", 
+        origin : ["http://localhost:3000" , "https://example.com"], 
         credentials : true,
     },
 });
+
 
 global.onlineUser = new Map();
 
