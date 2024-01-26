@@ -28,7 +28,7 @@ const server = app.listen(8080);
 // Socket io connection
 const io = socket(server , {
     cors: {
-        origin : ["http://localhost:3000" , "https://example.com"], 
+        origin : "*", 
         credentials : true,
     },
 });
